@@ -1,27 +1,30 @@
 /*
- * D04' 三个数轮换（D04 的变形）
- * 知识点：临时变量思想推广到三个变量
- * 要求：输入 1 2 3，让 a 拿到 c 的值、b 拿到 a 的值、c 拿到 b 的值
- * 输入：1 2 3
- * 输出：a=3 b=1 c=2
+ * D04' 三个数轮换（本机 VS 原版，双临时变量写法）
+ * 知识点：temp 思想推广；temp1 存 a、temp2 存 b，再依次赋值
+ * 输入：1 2 3   输出：after :a=3, b=1, c=2
  * 日期：2026-09-28  状态：课堂验收通过
  */
 #define _CRT_SECURE_NO_WARNINGS 1
-#include <stdio.h>
-
+#include<stdio.h>
 int main()
 {
-    int a = 0;
-    int b = 0;
-    int c = 0;
-    int temp = 0;
-    scanf("%d %d %d", &a, &b, &c);
+	int a = 0;
+	int b = 0;
+	int c = 0;
 
-    temp = a;   /* 先把 a 存起来 */
-    a = c;      /* a 拿到 c 的值 */
-    c = b;      /* c 拿到 b 的值 */
-    b = temp;   /* b 拿到原来 a 的值 */
+	scanf("%d %d %d", &a, &b, &c);
+	printf("before:a=%d, b=%d, c=%d\n", a, b, c);
 
-    printf("a=%d b=%d c=%d\n", a, b, c);
-    return 0;
+	int temp1;
+	int temp2;
+
+	temp1 = a;
+	temp2 = b;
+	a = c;
+	b = temp1;
+	c = temp2;
+
+	printf("after :a=%d, b=%d, c=%d\n", a, b, c);
+
+	return 0;
 }

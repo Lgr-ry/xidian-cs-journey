@@ -7,19 +7,21 @@
 
 | 文件 | 题目 | 知识点 | 状态 |
 |---|---|---|---|
-| D01_hello.c | 第一个程序 | printf、`\n` | ✅ |
-| D02_arithmetic.c | 两整数四则运算 | scanf、`/` 整除、`%` 取余 | ✅ |
-| D03_average.c | 三数平均值 | double、`%.1f`、整数除法陷阱 | ✅ |
-| D04_swap.c | 交换两数 | temp 临时变量 | ✅ |
-| D04b_rotate3.c | 三数轮换（变形） | temp 思想推广 | ✅ |
-| D05_fahrenheit_to_celsius.c | 华氏转摄氏 | 浮点运算、`.0` 陷阱 | ✅ |
-| D06_lower_to_upper.c | 小写转大写（XDOJ W4-02） | char/ASCII、字符算术 | ✅ |
-| D07_digits.c | 拆分三位数字 | `/` 与 `%` 拆数位 | ✅ |
-| D08_max2.c | 两数求最大值 | if/else、边界（相等） | ✅ |
-| D09_leap_year.c | 判断闰年（XDOJ W4-03） | `&&` `||`、多条件组合 | ✅ |
+| D01_hello.c | 第一个程序（三行输出） | printf、`\n` | ✅ 本机原版 |
+| D01b_int_div_demo.c | 整除 vs 浮点除法（5/2 与 5.0/2） | 整数除法截断 | ✅ 本机原版 |
+| D02_arithmetic.c | 两整数四则运算 | scanf、`/` 整除、`%` 取余 | ✅ 标签已规范* |
+| D03_average.c | 三数平均值 | double、`%.1f`、整数除法陷阱 | ✅ 本机原版 |
+| D04_swap.c | 交换两数 | temp 临时变量、before/after 打印 | ✅ 本机原版 |
+| D04b_rotate3.c | 三数轮换（变形） | 双临时变量 temp1/temp2 | ✅ 本机原版 |
+| D05_fahrenheit_to_celsius.c | 华氏转摄氏 | int 转 double、`/9.0` | ✅ 本机原版 |
+| D06_lower_to_upper.c | 小写转大写（XDOJ W4-02） | char/ASCII、字符算术 | ✅ 本机原版 |
+| D07_digits.c | 拆分三位数字 | `/` 与 `%` 拆数位 | ✅ 本机原版 |
+| D08_max2.c | 两数求最大值 | if/else、边界（相等） | ✅ 本机原版 |
+| D09_leap_year.c | 判断闰年（XDOJ W4-03） | `&&` `||`、多条件组合 | ✅ 本机原版 |
 
-> 说明：以上为课堂上逐题验收通过的版本（含边界用例测试），按提交规范整理。
+> 说明：除 D02 外均为本人 VS2026 工程中的源文件原版（2026-10-02 同步），每题均含边界用例测试。
 > VS 编译需在文件首行保留 `#define _CRT_SECURE_NO_WARNINGS 1`。
+> \* D02 本机原版五行输出标签都写成了 `sum =`（复制粘贴遗漏），入库版已规范为 sum/diff/product/quotient/remainder，本机待同步修改。
 
 ## 错题本（每道错题都要能给别人讲清错因）
 
