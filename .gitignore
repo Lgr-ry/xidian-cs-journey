@@ -1,0 +1,32 @@
+# 编译产物
+*.exe
+*.o
+*.obj
+*.ilk
+*.pdb
+*.hex
+*.bin
+*.axf
+*.map
+*.lst
+*.crf
+*.d
+*.dep
+*.lnp
+*.htm
+*.sct
+*.uvguix.*
+*.scvd
+
+# Keil / IDE 中间目录
+Objects/
+Listings/
+DebugConfig/
+RTE/
+.vscode/
+.idea/
+
+# 系统文件
+Thumbs.db
+desktop.ini
+.DS_Store
