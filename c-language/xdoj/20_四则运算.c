@@ -1,38 +1,31 @@
-#define _CRT_SECURE_NO_WARNINGS 1
-#include<stdio.h>
-// XDOJ 真题 #20 四则运算（2026-10-04 AC，六组用例全部通过）
-// 输入两个整数和一个运算符（+ - * / % 之一），输出和差积商余之一
-// 整除及求余时除数不为零（题面保证，不输出 error）
-// 样例：输入 5%2  输出（5 个前导空格）     5%2=1
-int main()
-{
-	int a = 0;
-	int b = 0;
-	char op;
-	int c = 0;
+#include <stdio.h>
 
-	scanf("%d %c %d", &a, &op, &b);
+int main() {
+    int a, b;
+    char op;
+    int result;
 
-	switch (op)
-	{
-	case'+':
-		c = a + b;
-		break;
-	case'-':
-		c = a - b;
-		break;
-	case'*':
-		c = a * b;
-		break;
-	case'/':
-		c = a / b;
-		break;
-	case'%':
-		c = a % b;
-		break;
-	}
+    scanf("%d%c%d", &a, &op, &b);
 
-	printf("     %d%c%d=%d\n", a, op, b, c);
+    switch (op) {
+        case '+':
+            result = a + b;
+            break;
+        case '-':
+            result = a - b;
+            break;
+        case '*':
+            result = a * b;
+            break;
+        case '/':
+            result = a / b;
+            break;
+        case '%':
+            result = a % b;
+            break;
+    }
 
-	return 0;
+    printf("%d%c%d=%d\n", a, op, b, result);
+
+    return 0;
 }
