@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C 语言 · 期中上机备考卡</title>
+<style>
+  :root{
+    --ink:#1f2937; --sub:#64748b; --line:#e2e8f0;
+    --blue:#2563eb; --green:#16a34a; --orange:#ea580c; --red:#dc2626; --purple:#7c3aed;
+    --bg:#f1f5f9; --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:28px 16px 60px;
+    background:var(--bg); color:var(--ink);
+    font-family:"Microsoft YaHei","PingFang SC",-apple-system,"Segoe UI",sans-serif;
+    line-height:1.75; font-size:15px;
+  }
+  .wrap{max-width:860px;margin:0 auto;}
+
+  /* 顶部 */
+  .hero{
+    background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 55%,#3b82f6 100%);
+    color:#fff; border-radius:18px; padding:26px 28px;
+    box-shadow:0 12px 28px rgba(37,99,235,.28);
+  }
+  .hero h1{margin:0 0 6px; font-size:26px; letter-spacing:.5px;}
+  .hero .sub{opacity:.9; font-size:14px;}
+  .facts{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+  .fact{
+    background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3);
+    padding:6px 14px; border-radius:999px; font-size:13px;
+  }
+
+  /* 卡片 */
+  .card{
+    background:var(--card); border-radius:16px; padding:22px 24px;
+    margin-top:18px; box-shadow:0 3px 14px rgba(15,23,42,.07);
+    border:1px solid #eef2f7;
+  }
+  .head{display:flex; align-items:center; gap:12px; margin-bottom:6px;}
+  .num{
+    width:30px;height:30px;flex:0 0 30px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;
+  }
+  .card h2{margin:0; font-size:18px;}
+  .card .lead{color:var(--sub); font-size:13.5px; margin:2px 0 14px;}
+
+  /* 三种信息条 */
+  .point,.trap,.ok{
+    padding:11px 14px; border-radius:10px; margin:9px 0; font-size:14.5px;
+  }
+  .point{background:#eff6ff; border-left:4px solid var(--blue);}
+  .trap{background:#fef2f2; border-left:4px solid var(--red);}
+  .ok{background:#f0fdf4; border-left:4px solid var(--green);}
+  .point b,.trap b,.ok b{display:inline-block;}
+
+  code{
+    background:#eef2ff; color:#3730a3; padding:1px 6px; border-radius:5px;
+    font-family:Consolas,"Courier New",monospace; font-size:13.5px;
+  }
+  pre{
+    background:#0f172a; color:#e2e8f0; padding:14px 16px; border-radius:11px;
+    overflow-x:auto; font-family:Consolas,"Courier New",monospace;
+    font-size:13.5px; line-height:1.6; margin:10px 0;
+  }
+  pre .cmt{color:#94a3b8;}
+  pre .hl{color:#fbbf24;}
+
+  table{width:100%; border-collapse:collapse; margin:10px 0; font-size:14px;}
+  th,td{border:1px solid var(--line); padding:7px 10px; text-align:left;}
+  th{background:#eef2ff; font-weight:600; color:#3730a3;}
+  tr:nth-child(even) td{background:#fafbff;}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media(max-width:680px){ .grid{grid-template-columns:1fr;} body{padding:16px 10px 40px;} }
+
+  .mini{
+    border:1px solid var(--line); border-radius:12px; padding:12px 14px; background:#fcfdff;
+  }
+  .mini h4{margin:0 0 6px; font-size:14.5px; color:#1e40af;}
+  .mini p{margin:0; font-size:13.5px; color:#475569;}
+
+  .flow{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 4px;}
+  .step{
+    flex:1 1 150px; background:#f8fafc; border:1px solid var(--line);
+    border-radius:11px; padding:10px 12px; font-size:13.5px;
+  }
+  .step b{display:block; color:var(--blue); font-size:12.5px; letter-spacing:1px;}
+
+  .footer{text-align:center; color:var(--sub); font-size:12.5px; margin-top:26px;}
+
+  @media print{
+    body{background:#fff; padding:0; font-size:12.5px;}
+    .card{box-shadow:none; border:1px solid #ddd; page-break-inside:avoid; margin-top:12px;}
+    .hero{box-shadow:none; page-break-after:avoid;}
+    pre{background:#f8fafc; color:#111; border:1px solid #ddd;}
+    @page{margin:12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>C 语言 · 期中上机备考卡</h1>
+    <div class="sub">《程序设计基础 B》（24CS2001）· 沈中老师</div>
+    <div class="facts">
+      <span class="fact">📅 2026-11-15</span>
+      <span class="fact">🖥 上机考核 · 闭卷</span>
+      <span class="fact">📌 权重 40%</span>
+      <span class="fact">范围：基本计算 / 分支 / 循环 / 二重循环 / 一维数组</span>
+    </div>
+  </div>
+
+  <!-- 0 策略 -->
+  <div class="card" style="border:2px solid #fdba74;">
+    <div class="head"><div class="num" style="background:#f97316">★</div><h2>先说最重要的事：4 道题怎么分配</h2></div>
+    <p class="lead">本次期中 4 题：1 星 1 道、2 星 1 道、4–5 星 2 道。难年，但 OJ 是<b>按测试点给分</b>——难题也能拿部分分。</p>
+
+    <table>
+      <tr><th>时间</th><th>题</th><th>目标</th><th>动作</th></tr>
+      <tr><td><b>8:30–8:35</b></td><td>—</td><td>—</td><td><b>通读 4 道题</b>，判断难度，排顺序。<b>先别写</b></td></tr>
+      <tr><td><b>8:35–8:45</b></td><td>1 星</td><td><b>100%</b></td><td>读完就写，写完立刻提交</td></tr>
+      <tr><td><b>8:45–9:00</b></td><td>2 星</td><td><b>100%</b></td><td>套模板，写完立刻提交</td></tr>
+      <tr><td><b>9:00–9:30</b></td><td>4 星</td><td>60–80%</td><td>9:15 前必须交一版（哪怕没过全部）</td></tr>
+      <tr><td><b>9:30–9:50</b></td><td>5 星</td><td>40–60%</td><td>过一组测试点就是赚</td></tr>
+      <tr><td><b>9:50–10:00</b></td><td>回查</td><td>—</td><td>停写新代码，只做提交与检查</td></tr>
+    </table>
+
+    <div class="ok"><b>三个硬检查点：</b>　9:00 前必须拿到 50 分　·　9:15 前难题要有第一版　·　9:50 停止写新代码。</div>
+
+    <div class="ok"><b>算一笔账：</b>前两题拿满 50 分，难题各拿一半 25 分 → <b>总分 75</b>。这就是"难年"里合理的目标，不是 100。</div>
+
+    <div class="trap"><b>两个致命错觉：</b><br>
+      ① "难题做不出就空着" —— 空着是 0 分，写个暴力版可能拿 60%。<br>
+      ② "先把难题做完美再回头" —— 前两题才是你唯一能确定拿到的分。
+    </div>
+
+    <div class="point"><b>提交顺序：</b>1 星 → 2 星 → 4 星 → 5 星。<b>每做完一题立刻提交</b>，不要在本地"再想想"。OJ 的分数是你唯一的进度条。</div>
+  </div>
+
+  <!-- 1 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--blue)">1</div><h2>上机题的五步通关流程</h2></div>
+    <p class="lead">上机不是"想起来就敲"，是按固定顺序走。每一步都别跳。</p>
+    <div class="flow">
+      <div class="step"><b>STEP 1</b>读题：圈出输入格式、输出格式、括号里的特殊说明</div>
+      <div class="step"><b>STEP 2</b>写状态表：有哪些变量、初值多少、谁改它</div>
+      <div class="step"><b>STEP 3</b>先写骨架：include、main、return 0，先编译一次</div>
+      <div class="step"><b>STEP 4</b>一次补一块，每补一块编译一次</div>
+      <div class="step"><b>STEP 5</b>边界自测：0、1、最大值；输出与样例逐字符比</div>
+    </div>
+    <div class="ok"><b>为什么先写骨架？</b> 编译错误分"语法错"和"逻辑错"，先让语法过关，后面的报错就只剩逻辑，定位快一半。</div>
+    <div class="trap"><b>最常见的翻车：</b> 一次写 60 行再编译，然后面对一整屏报错不知道从哪改。</div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--purple)">2</div><h2>数据与运算：四个必背数字</h2></div>
+    <p class="lead">这一块几乎每道题都会用到，只有四个知识点。</p>
+
+    <div class="point"><b>① 整数除法会截断。</b>
+      除号两边都是整数，结果就取整。<br>
+      <code>5/2 → 2</code>　<code>5.0/2 → 2.5</code>　<code>5/2.0 → 2.5</code><br>
+      <b>要小数就写 <code>5.0/9.0</code>。</b>
+    </div>
+
+    <div class="point"><b>② 强转是截断，不是四舍五入。</b>
+      <code>(int)3.9 → 3</code>　<code>(int)(-3.9) → -3</code><br>
+      想要四舍五入：<code>(int)(x + 0.5)</code>
+    </div>
+
+    <div class="point"><b>③ <code>i++</code> 和 <code>++i</code> 区别只在"先用还是先加"。</b>
+      <pre>i = 5;
+printf("%d", i++);   <span class="cmt">// 输出 5，之后 i=6</span>
+printf("%d", ++i);   <span class="cmt">// i 先变 7，输出 7</span></pre>
+      考试里除非专门考，别在一条语句里对同一变量多次自增。
+    </div>
+
+    <div class="point"><b>④ 字符就是 ASCII 码。</b>
+      <code>'A'=65</code>　<code>'a'=97</code>　<code>'0'=48</code>　大小写差 <b>32</b><br>
+      <code>c = c - 32;</code> 小写转大写　　<code>c = c + 32;</code> 大写转小写
+    </div>
+
+    <div class="trap"><b>表达式里的数学写法不能用：</b> <code>3 &lt; x &lt;= 10</code> 在 C 里恒为真，必须写 <code>x &gt; 3 &amp;&amp; x &lt;= 10</code>。</div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--green)">3</div><h2>输入输出：格式对不上，全白写</h2></div>
+    <p class="lead">上机判题是逐字符比对，多一个空格都是错。</p>
+
+    <table>
+      <tr><th>格式</th><th>用于</th><th>例子</th></tr>
+      <tr><td><code>%d</code></td><td>int</td><td><code>printf("%d\n", x)</code></td></tr>
+      <tr><td><code>%f</code></td><td>float / 输出 double</td><td><code>printf("%.2f\n", y)</code></td></tr>
+      <tr><td><code>%lf</code></td><td><b>scanf 读 double</b></td><td><code>scanf("%lf", &amp;y)</code></td></tr>
+      <tr><td><code>%c</code></td><td>单个字符</td><td><code>printf("%c", c)</code></td></tr>
+      <tr><td><code>%s</code></td><td>字符串（char 数组）</td><td><code>scanf("%s", s)</code> <b>不加 &amp;</b></td></tr>
+    </table>
+
+    <div class="point"><b>scanf 三件事，写完数一遍：</b><br>
+      ① <code>&amp;</code> 的个数 = 变量个数（<code>%s</code> 除外）<br>
+      ② 类型配对：double 用 <code>%lf</code>，用 <code>%d</code> 会读到垃圾值<br>
+      ③ 格式串里有什么，输入就敲什么：<code>"%d,%d"</code> 输入要带逗号；<b>末尾不要写 <code>\n</code></b>
+    </div>
+
+    <div class="point"><b><code>%.2f</code> = 保留两位小数</b>：不足补零、超出四舍五入。<br>
+      <code>1234.567 → 1234.57</code>　<code>1.5 → 1.50</code>
+    </div>
+
+    <div class="trap"><b>上机检查输出：</b>把程序的输出和题目样例<b>并排贴在一起</b>逐字符看，别用眼睛扫。空格、换行、大小写、单位，全算内容。</div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--orange)">4</div><h2>分支：三个坑 + 一个模板</h2></div>
+
+    <div class="trap"><b>坑 1：<code>if (...)</code> 后面加了分号。</b>
+      <code>if (x &gt; 0);</code> 表示"条件成立就执行空语句"，后面的代码永远执行。
+    </div>
+    <div class="trap"><b>坑 2：<code>=</code> 和 <code>==</code>。</b>
+      比较必须写两个等号。<code>if (x = 5)</code> 是赋值，条件恒为真。
+    </div>
+    <div class="trap"><b>坑 3：switch 不能判断范围。</b>
+      <code>case (x &gt;= 3)</code> 是错的。switch 只能"一个值对应一段代码"，见比较符号就换 if。
+      <br>另外 <b>漏 <code>break</code> 会往下穿</b>，执行完本 case 继续跑下一个。
+    </div>
+
+    <p class="lead" style="margin-top:16px">分段类题目（电价、个税、奖金、打车）全都是同一个模板：</p>
+    <pre><span class="cmt">// 每一档 = 上一档累计 + (本档上限 − 上档上限) × 本档税率</span>
+<span class="cmt">// 奖金例：10万以内 10%，10~20万的"部分" 7.5%</span>
+if (I &lt;= 100000)      bonus = I * 0.1;
+else if (I &lt;= 200000) bonus = <span class="hl">10000</span> + (I - 100000) * 0.075;
+else if (I &lt;= 400000) bonus = <span class="hl">17500</span> + (I - 200000) * 0.05;</pre>
+    <div class="ok"><b>最容易错的地方：</b>把"档宽 × 税率"算成"整段金额 × 税率"。<br>
+      20 万那一档的增量是 <code>(200000−100000)×7.5% = 7500</code>，不是 <code>200000×7.5% = 15000</code>。</div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--blue)">5</div><h2>循环：三要素 + 边界三问</h2></div>
+
+    <div class="point"><b>三要素（缺一个就死循环或少跑一次）：</b>
+      初值（从哪开始）· 条件（做到什么时候停）· 增量（每轮怎么变）。
+    </div>
+
+    <pre>sum = 0;                          <span class="cmt">// ① 初值：累加器先清零</span>
+for (i = 1; i &lt;= n; i++)          <span class="cmt">// ② 条件　③ 增量</span>
+    sum = sum + i;</pre>
+
+    <div class="point"><b>写完循环，回答三个问题：</b><br>
+      ① 一共执行几次？<br>
+      ② 最后一次循环时，<code>i</code> 是多少？<br>
+      ③ 循环结束时，<code>i</code> 是多少？<br>
+      <b>例：</b><code>for (i = 0; i &lt; n; i++)</code> → 跑 n 次，最后一次 i = n−1，结束后 i = n。
+    </div>
+
+    <div class="trap"><b>死循环的头号原因：</b> 循环体里忘了让变量变化（<code>i++</code>）。<br>
+      上机时如果程序"卡住不动"，先查这个。
+    </div>
+
+    <div class="point"><b>二重循环：内层管一行，外层管换行。</b>
+      <pre>for (i = 0; i &lt; n; i++) {        <span class="cmt">// 行</span>
+    for (j = 0; j &lt; m; j++)      <span class="cmt">// 列</span>
+        printf("%d ", a[i][j]);
+    printf("\n");                <span class="cmt">// 换行：内层外面、外层里面</span>
+}</pre>
+      找"任意两数"时，内层从 <code>j = i + 1</code> 开始，避免自己和自己比、避免重复。
+    </div>
+
+    <table>
+      <tr><th>语句</th><th>作用</th></tr>
+      <tr><td><code>break</code></td><td>立刻跳出<b>本层</b>循环</td></tr>
+      <tr><td><code>continue</code></td><td>跳过本轮剩下的语句，直接进入下一轮</td></tr>
+    </table>
+  </div>
+
+  <!-- 6 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--green)">6</div><h2>一维数组：五个模板</h2></div>
+
+    <div class="point"><b>定义与初始化：</b>
+      <code>int a[1005] = {0};</code>　长度写常量、不写 <code>a[n]</code>；<b>一定加 <code>{0}</code></b>，否则是垃圾值。
+    </div>
+
+    <div class="grid">
+      <div class="mini"><h4>① 求和</h4><p><code>s = 0; for (i=0;i&lt;n;i++) s += a[i];</code></p></div>
+      <div class="mini"><h4>② 最值</h4><p><code>mx = a[0];</code> 从 <code>a[0]</code> 开始，<b>不能取 0</b>（全负数就错）</p></div>
+      <div class="mini"><h4>③ 桶计数</h4><p><code>cnt[x]++;</code> 下标就是被统计的值本身</p></div>
+      <div class="mini"><h4>④ 双指针</h4><p><code>i=0; j=n-1;</code> 相向走，用于回文/反转</p></div>
+      <div class="mini"><h4>⑤ 冒泡排序</h4><p>相邻两两比较，顺序不对就交换，外层 n−1 轮</p></div>
+      <div class="mini"><h4>何时用数组</h4><p><b>要回头再看一遍数据吗？</b>要就用，不要就边读边算</p></div>
+    </div>
+
+    <pre><span class="cmt">// 冒泡排序模板</span>
+for (i = 0; i &lt; n - 1; i++)
+    for (j = 0; j &lt; n - 1 - i; j++)
+        if (a[j] &gt; a[j+1]) { t = a[j]; a[j] = a[j+1]; a[j+1] = t; }</pre>
+
+    <div class="trap"><b>数组三个必错：</b>
+      ① 忘 <code>= {0}</code> → 垃圾值；
+      ② <code>i &lt;= n</code> → 越界（越界不报错，只是结果错）；
+      ③ <code>scanf("%d", a[i])</code> 漏 <code>&amp;</code>。
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="card">
+    <div class="head"><div class="num" style="background:var(--purple)">7</div><h2>4–5 星难题：怎么拆、怎么拿部分分</h2></div>
+    <p class="lead">难题不是"更难的语法"，而是"规则更多、步骤更长"。它考的拆解能力，不是记忆。</p>
+
+    <p class="lead" style="margin-top:14px"><b>难题的四种长相（对号入座）：</b></p>
+    <table>
+      <tr><th>类型</th><th>特征</th><th>打法</th></tr>
+      <tr><td>多规则组合</td><td>一堆"如果…则…"（车牌限行、工资、计价）</td><td>每条规则写成独立 if，别合并</td></tr>
+      <tr><td>过程模拟</td><td>描述一个过程（跳一跳、报数、日期推进）</td><td>while + 状态变量，把"当前值"存住</td></tr>
+      <tr><td>数字规律</td><td>质数、完全数、亲和数、递推</td><td>先手算 5 项列表，找差/比/周期</td></tr>
+      <tr><td>字符串/数组处理</td><td>统计、回文、排序、中位数</td><td>套模板：桶计数、双指针、冒泡</td></tr>
+    </table>
+
+    <p class="lead" style="margin-top:16px"><b>拆解四步（卡住时按这个顺序做）：</b></p>
+    <div class="flow">
+      <div class="step"><b>① 抄规则</b>把题目里每一条要求抄成一行中文，编号</div>
+      <div class="step"><b>② 举小例</b>自己造一个 3–5 个数据的小例子，手算出答案</div>
+      <div class="step"><b>③ 定状态</b>列出：当前值、计数、标志位，各从几开始</div>
+      <div class="step"><b>④ 先暴力</b>写最直白的版本，能过样例就交，再优化</div>
+    </div>
+
+    <div class="ok"><b>暴力版也是分。</b>比如"求第 k 小"先用排序写，"判素数"先试到 n/2 不优化——只要能过一部分测试点，就比空着强。OJ 按测试点给分，不是全对才得分。</div>
+
+    <div class="trap"><b>难题最常死的地方（不是算法，是这三处）：</b><br>
+      ① 规则的边界含不含（"低于或等于" vs "小于"）—— 抄规则时就标出来；<br>
+      ② 状态变量忘了初始化 / 忘了在每轮重置；<br>
+      ③ 输出格式（多一个空格、少一个换行）。
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="card" style="border:2px solid #fecaca;">
+    <div class="head"><div class="num" style="background:var(--red)">8</div><h2>交卷前十问（错一个就白做）</h2></div>
+    <table>
+      <tr><th>#</th><th>问自己</th></tr>
+      <tr><td>1</td><td>所有变量都初始化了吗？（累加器 = 0，数组 = {0}）</td></tr>
+      <tr><td>2</td><td><code>scanf</code> 的 <code>&amp;</code> 数对得上变量数吗？</td></tr>
+      <tr><td>3</td><td>要小数的地方，除号两边有浮点数吗？</td></tr>
+      <tr><td>4</td><td>每个循环的边界是 <code>&lt;</code> 还是 <code>&lt;=</code>，代 n=1 推过吗？</td></tr>
+      <tr><td>5</td><td>每个循环都有推进变量吗（不会死循环）？</td></tr>
+      <tr><td>6</td><td>输出和样例逐字符一致吗？（空格、换行、大小写）</td></tr>
+      <tr><td>7</td><td>题目括号里的特殊说明（如"空串输出 0"）处理了吗？</td></tr>
+      <tr><td>8</td><td>数组开得够大吗？（比题目上限再大 5–10）</td></tr>
+      <tr><td>9</td><td>有没有把"每轮都输出"写成"最终输出"？</td></tr>
+      <tr><td>10</td><td>用了 <code>sqrt/log</code> 吗？有 <code>#include &lt;math.h&gt;</code> 吗？</td></tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    复习方法：不要重读，直接打开题库写。写完用上面第 7 张卡检查一遍。<br>
+    遇到报错先看是"编译错"还是"结果错"——编译错改语法，结果错查边界。
+  </div>
+
+</div>
+</body>
+</html>

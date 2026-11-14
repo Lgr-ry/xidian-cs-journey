@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>C 语言期中 · 循环与数组题解（29 题全代码）</title>
+<style>
+:root{--navy:#1f3a93;--blue:#2e5fa3;--ink:#1f2937;--sub:#5a6478;--line:#e3e8f0;--bg:#f3f5f9;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.7;font-size:15px}
+.wrap{max-width:1000px;margin:0 auto;padding:28px 18px 80px}
+header.hero{background:linear-gradient(135deg,#1e3a8a,#2e5fa3 60%,#3b82f6);color:#fff;border-radius:18px;padding:28px 30px;box-shadow:0 12px 28px rgba(30,58,138,.25)}
+header.hero h1{margin:0 0 8px;font-size:26px}
+header.hero p{margin:4px 0;opacity:.92;font-size:14px}
+.pill{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:4px 12px;font-size:12.5px;margin:10px 8px 0 0}
+nav.jump{position:sticky;top:0;z-index:9;background:rgba(243,245,249,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 0;margin:18px 0 6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+nav.jump b{color:var(--navy);margin-right:4px}
+nav.jump a{color:var(--blue);text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:7px;padding:2px 8px}
+nav.jump a:hover{background:#eef3ff}
+h2.sec{font-size:20px;color:var(--navy);margin:34px 0 6px;padding-bottom:8px;border-bottom:2px solid var(--navy)}
+p.secdesc{color:var(--sub);font-size:13.5px;margin:0 0 14px}
+.card{background:#fff;border:1px solid #edf1f7;border-radius:14px;padding:18px 20px;margin:14px 0;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.card.hard{border-left:4px solid #f59e0b}
+h3{font-size:17px;margin:0 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pid{background:var(--navy);color:#fff;font-size:12.5px;border-radius:6px;padding:2px 8px;font-weight:700}
+h3 .star{color:#f59e0b;font-size:14px;letter-spacing:1px}
+h3 .star .dim{color:#e5e7eb}
+.tag{font-size:12px;color:#475569;background:#eef2f7;border-radius:999px;padding:2px 10px}
+p.stmt{margin:6px 0 12px;color:#334155}
+.block{margin:12px 0}
+.bh{display:inline-block;font-size:12.5px;font-weight:700;color:#fff;background:var(--blue);border-radius:6px;padding:1px 8px;margin-bottom:6px}
+.warn .bh{background:#dc2626}
+ol.idea,ul.pit{margin:6px 0 0 22px;padding:0;font-size:14.5px}
+ol.idea li,ul.pit li{margin:3px 0}
+.code{background:#0f172a;border-radius:11px;overflow:hidden;margin:12px 0}
+.bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#1e293b}
+.dot{width:10px;height:10px;border-radius:50%;background:#475569}
+.fname{color:#94a3b8;font-size:12px;margin-left:6px;font-family:Consolas,monospace}
+.copy{margin-left:auto;background:#334155;color:#e2e8f0;border:0;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}
+.copy:hover{background:#475569}
+pre{margin:0;padding:14px 16px;overflow-x:auto}
+pre code{font-family:Consolas,"Courier New",monospace;font-size:13px;line-height:1.65;color:#e2e8f0;white-space:pre}
+.k{color:#93c5fd} .s{color:#fca5a5} .c{color:#64748b} .n{color:#fbbf24} .p{color:#c4b5fd}
+p.note{font-size:13px;color:var(--sub);margin:8px 0 0}
+p.note code{background:#eef2f7;color:#334155;border-radius:5px;padding:1px 6px;font-family:Consolas,monospace}
+footer{text-align:center;color:var(--sub);font-size:12.5px;margin-top:36px}
+</style></head><body><div class="wrap">
+
+<header class="hero">
+<h1>C 语言期中 · 循环与数组题解</h1>
+<p>29 道题全代码 · 每题本地编译 + 样例实测通过</p>
+<p>第一部分：1–2 星高频易错题（18 道）　第二部分：3 星以上重点题（11 道，含题目/思路/代码/易错点）</p>
+<span class="pill">📅 2026-11-15 08:30 上机 90 分钟</span>
+<span class="pill">🎯 4 题：1★ + 2★ + 4★ + 5★</span>
+<span class="pill">✅ gcc -std=c99 -Wall 零警告</span>
+</header>
+
+<nav class="jump"><b>1–2 星</b><a href="#p110">110</a><a href="#p79">79</a><a href="#p29">29</a><a href="#p147">147</a><a href="#p66">66</a><a href="#p100">100</a><a href="#p18">18</a><a href="#p374">374</a><a href="#p189">189</a><a href="#p165">165</a><a href="#p201">201</a><a href="#p200">200</a><a href="#p45">45</a><a href="#p75">75</a><a href="#p27">27</a><a href="#p28">28</a><a href="#p113">113</a><a href="#p193">193</a></nav>
+<h2 class="sec">第一部分　1–2 星：高频易错题（18 道）</h2>
+<p class="secdesc">这些题决定你能不能拿满前两题（50 分）。每题给完整源码，重点看注释里的「坑」。</p>
+
+<section class="card" id="p110">
+  <h3><span class="pid">110</span>判断奇偶性<span class="star">★<span class="dim">☆☆☆☆</span></span><span class="tag">基本计算 · 取余</span></h3>
+  <p class="stmt">输入一个正整数，输出&quot;偶数&quot;或&quot;奇数&quot;。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="0">复制</button></div><pre><code id="c0">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    if (n % 2 == 0)
+        printf(&quot;偶数\n&quot;);
+    else
+        printf(&quot;奇数\n&quot;);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>5 </code> → <code>奇数</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p79">
+  <h3><span class="pid">79</span>三个整数的平均值<span class="star">★<span class="dim">☆☆☆☆</span></span><span class="tag">基本计算 · 整数除法</span></h3>
+  <p class="stmt">输入三个整数，输出平均值，保留两位小数。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="1">复制</button></div><pre><code id="c1">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a, b, c;
+    scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c);
+    printf(&quot;%.2f\n&quot;, (a + b + c) / 3.0);   /* 除以 3.0，否则整除丢小数 */
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>20 42 55 </code> → <code>39.00</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p29">
+  <h3><span class="pid">29</span>各位数字之和<span class="star">★<span class="dim">☆☆☆☆</span></span><span class="tag">循环 · 拆位</span></h3>
+  <p class="stmt">输入正整数 n（最多 9 位），输出各位数字之和。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="2">复制</button></div><pre><code id="c2">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, t, s = 0;
+    scanf(&quot;%d&quot;, &amp;n);
+    t = n;                       /* 用副本拆位，保留原数 */
+    while (t &gt; 0)
+    {
+        s = s + t % 10;          /* 取个位 */
+        t = t / 10;              /* 丢掉个位 */
+    }
+    printf(&quot;%d\n&quot;, s);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>3704 </code> → <code>14</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p147">
+  <h3><span class="pid">147</span>奇数和（遇 0 结束）<span class="star">★<span class="dim">☆☆☆☆</span></span><span class="tag">循环 · 读入直到标记</span></h3>
+  <p class="stmt">输入若干整数，遇到 0 停止，输出其中奇数的和。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="3">复制</button></div><pre><code id="c3">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int x, s = 0;
+    while (scanf(&quot;%d&quot;, &amp;x) == 1 &amp;&amp; x != 0)
+    {
+        if (x % 2 != 0)
+            s = s + x;
+    }
+    printf(&quot;%d\n&quot;, s);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>1 2 3 4 5 0 6 7 </code> → <code>9</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p66">
+  <h3><span class="pid">66</span>平均数<span class="star">★<span class="dim">☆☆☆☆</span></span><span class="tag">循环 · 累加与溢出</span></h3>
+  <p class="stmt">输入 n 个整数（可达 2^31-1），输出平均数，保留两位小数。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="4">复制</button></div><pre><code id="c4">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i;
+    long long x;             /* 单个可达 2^31-1 */
+    long long sum = 0;       /* 100 个相加会超 int，必须 long long */
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%lld&quot;, &amp;x);
+        sum = sum + x;
+    }
+    printf(&quot;%.2f\n&quot;, (double)sum / n);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>5 2 3 1 4 5 </code> → <code>3.00</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p100">
+  <h3><span class="pid">100</span>三角形判别<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">分支 · 逻辑运算</span></h3>
+  <p class="stmt">输入三个整数边，能构成三角形则输出周长，否则输出 No。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="5">复制</button></div><pre><code id="c5">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a, b, c;
+    scanf(&quot;%d %d %d&quot;, &amp;a, &amp;b, &amp;c);
+    if (a + b &gt; c &amp;&amp; a + c &gt; b &amp;&amp; b + c &gt; a)   /* 三条边关系都要满足 */
+        printf(&quot;%d\n&quot;, a + b + c);
+    else
+        printf(&quot;No\n&quot;);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>3 3 2 </code> → <code>8</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p18">
+  <h3><span class="pid">18</span>数字字符<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">输入输出 · 格式串陷阱</span></h3>
+  <p class="stmt">输入整数 a（0~4）和数字字符 b（0~5），二者用逗号分隔，分别以整数和字符形式输出 a+b。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="6">复制</button></div><pre><code id="c6">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a;
+    char b;
+    scanf(&quot;%d ,%c&quot;, &amp;a, &amp;b);   /* 逗号前留空格，兼容样例 &quot;3 ,5&quot; */
+    printf(&quot;%d,%c\n&quot;, a + b, a + b);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>3,5 </code> → <code>56,8</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p374">
+  <h3><span class="pid">374</span>沸腾的水<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">分支 · 四段分段函数</span></h3>
+  <p class="stmt">输入分钟 m 和秒 s，按四段公式计算水温，保留 1 位小数。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="7">复制</button></div><pre><code id="c7">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int m, s;
+    double t, c;
+    scanf(&quot;%d %d&quot;, &amp;m, &amp;s);
+    t = m + s / 60.0;              /* 统一成分钟 */
+    if (t &gt;= 0 &amp;&amp; t &lt;= 10)
+        c = 100 - 5 * t;
+    else if (t &lt;= 30)
+        c = 50 - (t - 10);
+    else if (t &lt;= 50)
+        c = 30 - (t - 30) / 2.0;
+    else
+        c = 20;                    /* 注意：赋给 c，不是 t */
+    printf(&quot;%.1f\n&quot;, c);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>5 30 </code> → <code>72.5</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p189">
+  <h3><span class="pid">189</span>小球下落<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">循环 · 递推累加</span></h3>
+  <p class="stmt">球从 100 米落下，每次反弹一半。求第 n 次落地时共经过多少米、第 n 次反弹多高。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="8">复制</button></div><pre><code id="c8">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i;
+    double sum = 100.0;     /* 第一次落地只走了 100 */
+    double h = 100.0;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 1; i &lt;= n; i++)
+    {
+        h = h / 2.0;                 /* 第 i 次反弹高度 */
+        if (i &lt; n)
+            sum = sum + 2 * h;       /* 还没到最后一次，还要上下各走一次 */
+    }
+    printf(&quot;S=%.3f h=%.3f\n&quot;, sum, h);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>10 </code> → <code>S=299.609 h=0.098</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p165">
+  <h3><span class="pid">165</span>最值位置<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">数组 · 遍历与下标</span></h3>
+  <p class="stmt">输入 N 及 N 个数，输出 N、最大值及其下标。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="9">复制</button></div><pre><code id="c9">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, a[100];
+    int mx, pos;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    mx = a[0];                  /* 初值取第一个元素 */
+    pos = 0;
+    for (i = 1; i &lt; n; i++)
+    {
+        if (a[i] &gt; mx)
+        {
+            mx = a[i];
+            pos = i;
+        }
+    }
+    printf(&quot;%d %d %d\n&quot;, n, mx, pos);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>8 1 2 3 4 5 6 7 8 </code> → <code>8 8 7</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p201">
+  <h3><span class="pid">201</span>后项除以前项<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">数组 · 整数除法</span></h3>
+  <p class="stmt">输入 10 个整数，把后项除以前项的商存进数组 b 并输出。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="10">复制</button></div><pre><code id="c10">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a[10], b[9], i;
+    for (i = 0; i &lt; 10; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    for (i = 0; i &lt; 9; i++)
+        b[i] = a[i + 1] / a[i];      /* 整数除法，前项更大时为 0 */
+    for (i = 0; i &lt; 9; i++)
+    {
+        if (i &gt; 0) printf(&quot; &quot;);
+        printf(&quot;%d&quot;, b[i]);
+    }
+    printf(&quot;\n&quot;);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>1 2 5 15 60 70 30 90 100 200 </code> → <code>2 2 3 4 1 0 3 1 2</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p200">
+  <h3><span class="pid">200</span>数组元素平移<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">数组 · 分段输出</span></h3>
+  <p class="stmt">数组 1..10，输入 p，把下标 0..p 的元素平移到末尾后输出。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="11">复制</button></div><pre><code id="c11">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int p, i, first = 1;
+    scanf(&quot;%d&quot;, &amp;p);
+    for (i = p + 1; i &lt; 10; i++)          /* 先输出未平移的部分 */
+    {
+        if (!first) printf(&quot; &quot;);
+        printf(&quot;%d&quot;, a[i]);
+        first = 0;
+    }
+    for (i = 0; i &lt;= p; i++)              /* 再输出被平移的部分 */
+    {
+        if (!first) printf(&quot; &quot;);
+        printf(&quot;%d&quot;, a[i]);
+        first = 0;
+    }
+    printf(&quot;\n&quot;);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>3 </code> → <code>5 6 7 8 9 10 1 2 3 4</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p45">
+  <h3><span class="pid">45</span>气温波动<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">数组 · 相邻差</span></h3>
+  <p class="stmt">输入 n 天温度，输出相邻两天温差绝对值的最大值。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="12">复制</button></div><pre><code id="c12">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, a[35], mx = 0, d;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    for (i = 1; i &lt; n; i++)
+    {
+        d = a[i] - a[i - 1];
+        if (d &lt; 0) d = -d;               /* 取绝对值 */
+        if (d &gt; mx) mx = d;
+    }
+    printf(&quot;%d\n&quot;, mx);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>6 2 5 5 7 -3 5 </code> → <code>10</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p75">
+  <h3><span class="pid">75</span>灰度直方图<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">数组 · 桶计数</span></h3>
+  <p class="stmt">输入 m×n 个 0~15 的灰度值，按灰度从小到大输出有像素的灰度级及个数。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="13">复制</button></div><pre><code id="c13">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int m, n, i, x;
+    int cnt[16] = {0};              /* 16 个桶，下标就是灰度值 */
+    scanf(&quot;%d %d&quot;, &amp;m, &amp;n);
+    for (i = 0; i &lt; m * n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        cnt[x]++;                    /* 读到就加一 */
+    }
+    for (i = 0; i &lt; 16; i++)
+        if (cnt[i] &gt; 0)
+            printf(&quot;%d %d\n&quot;, i, cnt[i]);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>5 4 0 1 0 2 8 3 4 8 5 9 12 14 10 6 7 1 15 3 6 10 </code> → <code>0 2 / 1 2 / 2 1 / 3 2 / 4 1 / 5 1 / 6 2 / 7 1 / 8 2 / 9 1 / 10 2 / 12 1 / 14 1 / 15 1</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p27">
+  <h3><span class="pid">27</span>阶梯电价计费<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">分支 · 累进分段</span></h3>
+  <p class="stmt">三档电价：[0,110] 每度 0.5；(110,210] 超出部分 0.55；超 210 部分 0.70。输出电费，保留两位。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="14">复制</button></div><pre><code id="c14">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    double x, fee;
+    scanf(&quot;%lf&quot;, &amp;x);
+    if (x &lt;= 110)
+        fee = x * 0.5;
+    else if (x &lt;= 210)
+        fee = 110 * 0.5 + (x - 110) * 0.55;
+    else
+        fee = 110 * 0.5 + 100 * 0.55 + (x - 210) * 0.70;
+    printf(&quot;%.2f\n&quot;, fee);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>100 </code> → <code>50.00</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p28">
+  <h3><span class="pid">28</span>计算某月天数<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">分支 · 查表 + 闰年</span></h3>
+  <p class="stmt">输入年份和月份，输出该月天数。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="15">复制</button></div><pre><code id="c15">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int y, m;
+    int days[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    scanf(&quot;%d %d&quot;, &amp;y, &amp;m);
+    if ((y % 4 == 0 &amp;&amp; y % 100 != 0) || y % 400 == 0)   /* 闰年规则三条件 */
+        days[2] = 29;
+    printf(&quot;%d\n&quot;, days[m]);
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>2000 3 </code> → <code>31</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p113">
+  <h3><span class="pid">113</span>出租车计价<span class="star">★★<span class="dim">☆☆☆</span></span><span class="tag">分支 · 分段 + 取整</span></h3>
+  <p class="stmt">3 公里内 10 元；3~10 公里每公里 2 元；超 10 公里部分每公里 3 元；等待每 5 分钟 2 元（不足不计）。四舍五入取整。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="16">复制</button></div><pre><code id="c16">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    double km, fee;
+    int wait;
+    scanf(&quot;%lf %d&quot;, &amp;km, &amp;wait);
+    if (km &lt;= 3)
+        fee = 10.0;
+    else if (km &lt;= 10)
+        fee = 10.0 + (km - 3) * 2.0;
+    else
+        fee = 10.0 + 7 * 2.0 + (km - 10) * 3.0;
+    fee = fee + (wait / 5) * 2;        /* 整数除法：不足 5 分钟不计 */
+    printf(&quot;%d\n&quot;, (int)(fee + 0.5)); /* 正数四舍五入 */
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>40.0 7 </code> → <code>116</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card" id="p193">
+  <h3><span class="pid">193</span>评分系统<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">数组 · 排序 + 去极值</span></h3>
+  <p class="stmt">n 位评委打分，去掉一个最高和一个最低，求剩余平均分，保留两位。</p>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="17">复制</button></div><pre><code id="c17">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, j, a[15], t, sum = 0;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    for (i = 0; i &lt; n - 1; i++)              /* 冒泡升序 */
+        for (j = 0; j &lt; n - 1 - i; j++)
+            if (a[j] &gt; a[j + 1])
+            {
+                t = a[j]; a[j] = a[j + 1]; a[j + 1] = t;
+            }
+    for (i = 1; i &lt; n - 1; i++)              /* 去掉首尾 */
+        sum = sum + a[i];
+    printf(&quot;%.2f\n&quot;, (double)sum / (n - 2));
+    return 0;
+}</code></pre></div>
+  <p class="note">样例：<code>5 70 75 80 85 90 </code> → <code>80.00</code>　本地实测：✅ 通过</p>
+</section>
+
+<nav class="jump"><b>3 星+</b><a href="#p87">87</a><a href="#p385">385</a><a href="#p384">384</a><a href="#p167">167</a><a href="#p6">6</a><a href="#p40">40</a><a href="#p54">54</a><a href="#p196">196</a><a href="#p249">249</a><a href="#p50">50</a><a href="#p68">68</a></nav>
+<h2 class="sec">第二部分　3 星以上：重点题（11 道）</h2>
+<p class="secdesc">每题按「题目 → 思路 → 代码 → 易错点」四段展开，覆盖模拟、排序、枚举、多关键字等考试热点。</p>
+
+<section class="card hard" id="p87">
+  <h3><span class="pid">87</span>跳一跳<span class="star">★★★★<span class="dim">☆</span></span><span class="tag">过程模拟 · 连击计数</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入一串跳跃结果（1=跳到方块、2=跳到中心），以 0 结束。跳到方块得 1 分；跳到中心第一次得 2 分，连续第 k 次得 2k 分。输出总分。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>读入直到出现 0，用 while 循环。</li><li>维护两个状态：streak（连续跳中心的次数）、score（总分）。</li><li>读到 1：streak 清零，score 加 1。</li><li>读到 2：streak 加 1，score 加 2*streak（第 1 次 +2，第 2 次 +4…）。</li><li>读到 0：退出循环，输出 score。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="18">复制</button></div><pre><code id="c18">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int x, streak = 0, score = 0;
+    while (scanf(&quot;%d&quot;, &amp;x) == 1 &amp;&amp; x != 0)
+    {
+        if (x == 1)
+        {
+            streak = 0;              /* 连击中断 */
+            score = score + 1;
+        }
+        else
+        {
+            streak = streak + 1;     /* 连击加一 */
+            score = score + 2 * streak;
+        }
+    }
+    printf(&quot;%d\n&quot;, score);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>连击必须在跳到方块时清零，否则后面的 2 分会一直累加。</li><li>结束标记 0 不能计入得分。</li></ul></div>
+  <p class="note">样例：<code>1 1 2 1 2 2 2 0 </code> → <code>17</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p385">
+  <h3><span class="pid">385</span>报数游戏<span class="star">★★★★★<span class="dim"></span></span><span class="tag">过程模拟 · 三人轮转</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">三人从 1 开始轮流报数，遇到 7 的倍数或含 7 的数则跳过（不计入已报数）。共报出 n 个数字后结束，输出每人跳过数字的个数。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>外层 while 直到「已报出个数」达到 n。</li><li>每个数先判断是否该跳过：是 7 的倍数，或十进制某位是 7。</li><li>用 skip[3] 记录三人各自跳过次数，用 p 记录轮到谁，p = (p+1)%3。</li><li>跳过的数不计入已报数；没跳过的才让已报数加一。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="19">复制</button></div><pre><code id="c19">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, skip[3] = {0, 0, 0};
+    int valid = 0, num = 1, p = 0;
+    scanf(&quot;%d&quot;, &amp;n);
+    while (valid &lt; n)
+    {
+        int t = num, has7 = 0;
+        while (t &gt; 0)                 /* 判断十进制中是否含 7 */
+        {
+            if (t % 10 == 7) { has7 = 1; break; }
+            t = t / 10;
+        }
+        if (num % 7 == 0 || has7)
+            skip[p]++;                /* 跳过：记在这人名下，不计入 valid */
+        else
+            valid++;
+        p = (p + 1) % 3;              /* 轮到下一个人 */
+        num++;
+    }
+    printf(&quot;%d %d %d\n&quot;, skip[0], skip[1], skip[2]);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>只有「没跳过」的数才让 valid 加一，跳过的数不能算报出。</li><li>判断含 7 用 while 拆位，不要用字符串函数。</li></ul></div>
+  <p class="note">样例：<code>7 </code> → <code>1 0 0</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p384">
+  <h3><span class="pid">384</span>种苹果<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">过程模拟 · 累计与最大减少</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">第一行 n 表示疏果轮数；第二行 n+1 个整数，第一个是初始苹果数 t，其后 n 个为 0 或负整数（负数绝对值表示本轮去掉的个数）。输出最终苹果数和疏果最多的轮次（从 1 开始）。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>先读 n 和初始值 cur。</li><li>循环 n 轮：每轮读一个 drop（≤0），cur += drop。</li><li>本轮减少量 = -drop；若大于历史最大，记录最大减少量与轮次。</li><li>循环结束输出 cur 和记录的轮次。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="20">复制</button></div><pre><code id="c20">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, t, i, cur, drop;
+    int maxdrop = -1, maxround = 1;
+    scanf(&quot;%d %d&quot;, &amp;n, &amp;t);
+    cur = t;
+    for (i = 1; i &lt;= n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;drop);
+        cur = cur + drop;                 /* 累计剩余 */
+        if (-drop &gt; maxdrop)              /* 本轮去掉的个数更大 */
+        {
+            maxdrop = -drop;
+            maxround = i;
+        }
+    }
+    printf(&quot;%d %d\n&quot;, cur, maxround);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>最大减少量初值取 -1，这样「全为 0」时也能正确停在第一轮。</li><li>轮次从 1 开始计数，用循环变量 i 正好。</li></ul></div>
+  <p class="note">样例：<code>2 50 -5 -8 </code> → <code>37 2</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p167">
+  <h3><span class="pid">167</span>数字统计排序<span class="star">★★★★<span class="dim">☆</span></span><span class="tag">数组 · 桶计数 + 双层扫描</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入 n 个不超过 1000 的非负整数，统计每个数出现次数，按次数从多到少输出；次数相同的，值小的先输出。每行两个数：值 和 次数。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>开 cnt[1005] 桶，读入时 cnt[x]++。</li><li>不排序：外层枚举次数 c 从 n 递减到 1，内层枚举值 v 从 0 升到 1000。</li><li>外层递减保证次数多的先输出；内层递增保证同次数时值小的先输出。</li><li>只输出 cnt[v] == c 的位置，未出现的值（次数 0）自然被跳过。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="21">复制</button></div><pre><code id="c21">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, x, c, v;
+    int cnt[1005] = {0};
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+    {
+        scanf(&quot;%d&quot;, &amp;x);
+        cnt[x]++;
+    }
+    for (c = n; c &gt;= 1; c--)              /* 次数从大到小 */
+    {
+        for (v = 0; v &lt;= 1000; v++)       /* 值从小到大 */
+        {
+            if (cnt[v] == c)
+                printf(&quot;%d %d\n&quot;, v, c);
+        }
+    }
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>外层上界是 c&gt;=1：写成 c&gt;=0 会把所有未出现的值当次数 0 打印出来。</li><li>if 里是比较 ==，写成赋值 = 会把所有值都打印一遍。</li></ul></div>
+  <p class="note">样例：<code>12 5 2 3 3 1 3 4 2 5 2 3 5 </code> → <code>3 4 / 2 3 / 5 3 / 1 1 / 4 1</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p6">
+  <h3><span class="pid">6</span>数字排序<span class="star">★★★★★<span class="dim"></span></span><span class="tag">数组 · 拆位 + 多关键字排序</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入 n 个不超过 10000 的非负整数，计算每个数的各位数字和，按数字和从大到小输出；数字和相同的，值小的先输出。每行两个数：原数 和 数字和。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>需要同时保留「原数」和「数字和」，用两个平行数组 val[]、sco[]。</li><li>读入时立刻算数字和：拆位累加。</li><li>选择排序：每轮在未排好区间找「最该排前面」的下标 k。</li><li>比较规则：sco 更大者优先；sco 相同则 val 更小者优先。</li><li>找到 k 后与位置 i 交换，两个数组必须同步交换。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="22">复制</button></div><pre><code id="c22">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, j, k, t;
+    int val[1005], sco[1005];
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+    {
+        int x, s = 0;
+        scanf(&quot;%d&quot;, &amp;val[i]);
+        x = val[i];
+        while (x &gt; 0)                 /* 读入即算数字和 */
+        {
+            s = s + x % 10;
+            x = x / 10;
+        }
+        sco[i] = s;
+    }
+    for (i = 0; i &lt; n - 1; i++)       /* 选择排序 */
+    {
+        k = i;
+        for (j = i + 1; j &lt; n; j++)
+        {
+            if (sco[j] &gt; sco[k] || (sco[j] == sco[k] &amp;&amp; val[j] &lt; val[k]))
+                k = j;
+        }
+        if (k != i)                   /* 两个数组同步交换 */
+        {
+            t = val[i]; val[i] = val[k]; val[k] = t;
+            t = sco[i]; sco[i] = sco[k]; sco[k] = t;
+        }
+    }
+    for (i = 0; i &lt; n; i++)
+        printf(&quot;%d %d\n&quot;, val[i], sco[i]);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>数字和必须在读入时算并单独存，不能覆盖原数。</li><li>两个数组忘了同步交换 = 原数和数字和错位。</li><li>冒泡的内层要用 j 比较 a[j] 与 a[j+1]。</li></ul></div>
+  <p class="note">样例：<code>5 101 100 999 1234 110 </code> → <code>999 27 / 1234 10 / 101 2 / 110 2 / 100 1</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p40">
+  <h3><span class="pid">40</span>等差数列<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">数组 · 排序后验证</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入 n 个整数，判断能否构成等差数列。不能则输出 no；能则输出公差（相邻两项差的绝对值）。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>题面给的序列是乱序的，先升序排序。</li><li>排序后公差 d = a[1] - a[0]（此时非负，就是绝对值）。</li><li>从 i=1 到 n-1 验证 a[i]-a[i-1] 是否都等于 d（注意上界 n-1，别访问 a[n]）。</li><li>一旦不等，输出 no 并结束。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="23">复制</button></div><pre><code id="c23">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, j, t, d, a[105];
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+        scanf(&quot;%d&quot;, &amp;a[i]);
+    for (i = 0; i &lt; n - 1; i++)               /* 冒泡升序 */
+        for (j = 0; j &lt; n - 1 - i; j++)
+            if (a[j] &gt; a[j + 1])
+            {
+                t = a[j]; a[j] = a[j + 1]; a[j + 1] = t;
+            }
+    if (n &lt;= 2)                               /* 一两项总能构成等差 */
+    {
+        printf(&quot;%d\n&quot;, n == 2 ? a[1] - a[0] : 0);
+        return 0;
+    }
+    d = a[1] - a[0];
+    for (i = 1; i &lt; n; i++)
+    {
+        if (a[i] - a[i - 1] != d)
+        {
+            printf(&quot;no\n&quot;);
+            return 0;
+        }
+    }
+    printf(&quot;%d\n&quot;, d);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>验证循环上界是 n（i 从 1 开始，访问 a[i-1]），写成 i&lt;=n 会越界。</li><li>成功时输出的是公差 d，不是 yes。</li><li>no 是小写，与题面一致。</li></ul></div>
+  <p class="note">样例：<code>6 23 15 4 18 35 11 </code> → <code>no</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p54">
+  <h3><span class="pid">54</span>abc 组合<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">二重/三重循环 · 枚举</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">已知 abc + cba = n（1000&lt;n&lt;2000），a、c 为 1~9，b 为 0~9。按整数 abc 从小到大的顺序，输出所有满足条件的 a、b、c。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>三重循环枚举 a(1~9)、b(0~9)、c(1~9)。</li><li>abc = 100a+10b+c，cba = 100c+10b+a，两者之和 = 101(a+c)+20b。</li><li>按 a、b、c 递增枚举，输出天然就是 abc 从小到大。</li><li>每组输出三个数一行。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="24">复制</button></div><pre><code id="c24">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, a, b, c;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (a = 1; a &lt;= 9; a++)
+        for (b = 0; b &lt;= 9; b++)
+            for (c = 1; c &lt;= 9; c++)
+                if (101 * (a + c) + 20 * b == n)
+                    printf(&quot;%d %d %d\n&quot;, a, b, c);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>a 和 c 不能取 0（否则不是三位数），b 可以取 0。</li><li>枚举顺序决定输出顺序，a 在最外层才符合「abc 从小到大」。</li></ul></div>
+  <p class="note">样例：<code>1352 </code> → <code>3 7 9 / 4 7 8 / 5 7 7 / 6 7 6 / 7 7 5 / 8 7 4 / 9 7 3</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p196">
+  <h3><span class="pid">196</span>输出金字塔<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">二重循环 · 图形</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入一个大写字母，输出字母金字塔，最后一行开头无空格。例如输入 C，输出 A / ABA / ABCBA（逐行居中）。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>行数 rows = 字母 - A + 1。</li><li>第 i 行（i 从 0 起）先打 rows-1-i 个空格。</li><li>再顺序打 A 到 A+i。</li><li>再逆序打 A+i-1 到 A（注意 i=0 时这一轮不执行）。</li><li>每行结束换行，行末不加空格。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="25">复制</button></div><pre><code id="c25">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char mc, ch;
+    int rows, i, j;
+    scanf(&quot; %c&quot;, &amp;mc);
+    rows = mc - &#x27;A&#x27; + 1;
+    for (i = 0; i &lt; rows; i++)
+    {
+        for (j = 0; j &lt; rows - 1 - i; j++)
+            printf(&quot; &quot;);
+        for (ch = &#x27;A&#x27;; ch &lt;= &#x27;A&#x27; + i; ch++)
+            printf(&quot;%c&quot;, ch);
+        for (ch = &#x27;A&#x27; + i - 1; ch &gt;= &#x27;A&#x27;; ch--)
+            printf(&quot;%c&quot;, ch);
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>scanf 前加空格（&quot; %c&quot;）可以跳过缓冲区里残留的换行。</li><li>第二个字母循环从 A+i-1 开始，i=0 时条件不成立，正好略过。</li></ul></div>
+  <p class="note">样例：<code>C </code> → <code>  A /  ABA / ABCBA</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p249">
+  <h3><span class="pid">249</span>分解质因数<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">循环 · 试除分解</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入一个正整数 n（2&lt;n&lt;1000），把它分解成质因数相乘的形式，按从小到大输出，形如 2*3*3*5。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>从 d=2 开始试除。</li><li>只要 n 能被 d 整除，就输出 d、n/=d，并把 d 重复到不能整除为止。</li><li>不能整除时 d++ 继续试。</li><li>用 first 标记控制星号，第一个因子前不输出星号。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="26">复制</button></div><pre><code id="c26">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, d = 2, first = 1;
+    scanf(&quot;%d&quot;, &amp;n);
+    while (n &gt; 1)
+    {
+        while (n % d == 0)            /* 同一个因子可能出现多次 */
+        {
+            if (!first) printf(&quot;*&quot;);
+            printf(&quot;%d&quot;, d);
+            first = 0;
+            n = n / d;
+        }
+        d++;
+    }
+    printf(&quot;\n&quot;);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>同一个质因子要重复输出（如 90 里的两个 3）。</li><li>星号要在因子之间，不能出现在开头或结尾。</li></ul></div>
+  <p class="note">样例：<code>90 </code> → <code>2*3*3*5</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p50">
+  <h3><span class="pid">50</span>选号程序<span class="star">★★★<span class="dim">☆☆</span></span><span class="tag">循环 · 数位和比较</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入 n 个号码，选出各位数字之和最大的；若多个号码数字和相同，选数值最大的。输出该号码。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>维护 best（当前最优号码）与 bestsco（其数字和）。</li><li>每个号码单独算数字和（拆位）。</li><li>和更大 → 直接替换；和相同且数值更大 → 替换。</li><li>全程只保留一个最优解，不需要数组。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="27">复制</button></div><pre><code id="c27">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int n, i, x, best = 0, bestsco = -1;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (i = 0; i &lt; n; i++)
+    {
+        int t, s = 0;
+        scanf(&quot;%d&quot;, &amp;x);
+        t = x;
+        while (t &gt; 0)
+        {
+            s = s + t % 10;
+            t = t / 10;
+        }
+        if (s &gt; bestsco || (s == bestsco &amp;&amp; x &gt; best))
+        {
+            bestsco = s;
+            best = x;
+        }
+    }
+    printf(&quot;%d\n&quot;, best);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>并列时要比较数值大小，不能只看数字和。</li><li>bestsco 初值取 -1，保证第一个号码一定能替换进来。</li></ul></div>
+  <p class="note">样例：<code>5 10000 11111 22222 333 1234 </code> → <code>22222</code>　本地实测：✅ 通过</p>
+</section>
+<section class="card hard" id="p68">
+  <h3><span class="pid">68</span>日期计算<span class="star">★★★★<span class="dim">☆</span></span><span class="tag">数组 · 查表 + 逐月累减</span></h3>
+  <div class="block"><div class="bh">题目</div><p class="stmt">输入年份 y 和第 d 天，输出这一天是几月几日（考虑闰年）。</p></div>
+  <div class="block"><div class="bh">思路</div><ol class="idea"><li>建一张 13 个元素的月份天数表，下标就是月份。</li><li>闰年时把 days[2] 改成 29。</li><li>用 while 逐月减：剩余天数大于当月天数就减去、月份加一。</li><li>循环结束时月份和剩余天数就是答案。</li></ol></div>
+  <div class="code"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">main.c</span><button class="copy" data-i="28">复制</button></div><pre><code id="c28">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int y, d, m = 1;
+    int days[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    scanf(&quot;%d %d&quot;, &amp;y, &amp;d);
+    if ((y % 4 == 0 &amp;&amp; y % 100 != 0) || y % 400 == 0)
+        days[2] = 29;
+    while (d &gt; days[m])          /* 用 &gt; 而不是 &gt;=，第 31 天应停在当月 */
+    {
+        d = d - days[m];
+        m = m + 1;
+    }
+    printf(&quot;%d %d\n&quot;, m, d);
+    return 0;
+}</code></pre></div>
+  <div class="block warn"><div class="bh">易错点</div><ul class="pit"><li>循环条件用 &gt; ：等于当月天数时应停在当月最后一天，不能进位。</li><li>闰年只改 2 月，别改整张表。</li></ul></div>
+  <p class="note">样例：<code>2015 80 </code> → <code>3 21</code>　本地实测：✅ 通过</p>
+</section>
+
+<footer>全部代码已用 gcc 8.1（-std=c99 -Wall）编译，并通过题面样例与边界用例实测。<br>
+错题编号对应 c-language/错题本.md 的 E01–E12。</footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    var t = document.getElementById('c'+b.dataset.i).innerText;
+    navigator.clipboard.writeText(t).then(function(){
+      var o=b.innerText; b.innerText='已复制'; setTimeout(function(){b.innerText=o;},1200);
+    });
+  });
+});
+// 简易 C 语法高亮
+var KW=/\b(int|char|double|float|long|short|void|if|else|for|while|do|switch|case|break|continue|return|const|unsigned|sizeof)\b/g;
+document.querySelectorAll('pre code').forEach(function(el){
+  var s=el.innerHTML;
+  s=s.replace(/(\/\/.*)$/gm,'<span class="c">$1</span>');
+  s=s.replace(/(&quot;.*?&quot;)/g,'<span class="s">$1</span>');
+  s=s.replace(KW,'<span class="k">$1</span>');
+  s=s.replace(/\b(\d+)\b/g,'<span class="n">$1</span>');
+  el.innerHTML=s;
+});
+</script>
+</body></html>
