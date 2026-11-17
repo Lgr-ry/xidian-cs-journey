@@ -1,0 +1,225 @@
+{
+ "checks": [
+  [
+   "文件数量=9",
+   true,
+   "实际 9 个"
+  ],
+  [
+   "命名 00–08 前缀",
+   true,
+   "9 个文件均以 0X- 开头"
+  ],
+  [
+   "00-总目录与使用说明.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "01-基础篇-初识C语言与数据类型.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "02-运算符与流程控制.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "03-数组与函数.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "04-调试与底层原理.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "05-指针上-核心与数组.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "06-指针下-动态内存与函数.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "07-字符串与自定义类型.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "08-文件操作与加餐.pdf 字体齐全",
+   true,
+   "SimSun/STZhongsong/KaiTi/Consolas 均嵌入"
+  ],
+  [
+   "ch00 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch01 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch01 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch01 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch01 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch02 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch02 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch02 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch02 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch03 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch03 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch03 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch03 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch04 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch04 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch04 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch04 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch05 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch05 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch05 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch05 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch06 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch06 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch06 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch06 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch07 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch07 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch07 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch07 含「易错」",
+   true,
+   "存在"
+  ],
+  [
+   "ch08 div 配平",
+   true,
+   "depth=0"
+  ],
+  [
+   "ch08 含「源课件页码对照」",
+   true,
+   "存在"
+  ],
+  [
+   "ch08 含「自测三题」",
+   true,
+   "存在"
+  ],
+  [
+   "ch08 含「易错」",
+   true,
+   "存在"
+  ]
+ ],
+ "defects": []
+}
